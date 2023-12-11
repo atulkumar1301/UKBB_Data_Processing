@@ -9,6 +9,12 @@ with open ("/Volumes/ATUL_6TB/Data/UKBB/Olink_Data/Olink_New/6_Olink_Data_Merged
             lod_line = lod.readline ()
             for lod_line in lod:
                  lod_list = lod_line.split ("\t")
-                 #print (type (lod_list [1]))
                  if ((int(pro_list [610]) == int(lod_list [1])) and (int(lod_list [2]) == 0)):
-                     f_m.write (str.rstrip (pro) + "\t" + lod_line)
+                     if ("\n" in pro) and ("\n" in lod_line):
+                         f_m.write (str.rstrip (pro) + "\t" + lod_line)
+                     elif ("\n" in pro) and ("\n" not in lod_line):
+                        f_m.write (str.rstrip (pro) + "\t" + lod_line + "\n")
+                     elif ("\n" not in pro) and ("\n" in lod_line):
+                        f_m.write (pro + "\t" + lod_line)
+                     elif ("\n" not in pro) and ("\n" not in lod_line):
+                        f_m.write (pro + "\t" + lod_line + "\n")
